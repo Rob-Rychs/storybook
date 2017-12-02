@@ -11,14 +11,14 @@ shell.rm('-rf', 'dist');
 
 const babel = path.join(__dirname, '..', 'node_modules', '.bin', 'babel');
 const args = [
-  '--ignore tests,__tests__,test.js,stories/,story.jsx',
+  '--ignore tests/*,__tests__/,**.test.js,stories/,**.story.js,**.stories.js',
   '--plugins "transform-runtime"',
   './src --out-dir ./dist',
   '--copy-files',
 ].join(' ');
 
 const command = `${babel} ${args}`;
-const code = shell.exec(command, { silent: true }).code;
+const { code } = shell.exec(command, { silent: true });
 
 if (code !== 0) {
   log.error(`FAILED: ${chalk.bold(`${packageJson.name}@${packageJson.version}`)}`);
